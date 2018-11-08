@@ -11,7 +11,7 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
   pre:
-    - yarn global add now
+    - yarn install
 
 test:
   override:
