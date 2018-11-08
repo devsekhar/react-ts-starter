@@ -10,7 +10,7 @@ install:
   npm i -g yarn
 
 before_script:
-  - yarn
+  - yarn install --no-lockfile
 
 cache:
   yarn: true
