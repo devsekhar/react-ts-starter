@@ -1,59 +1,80 @@
 version: 2
+
+references:
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: .
+
+defaults: &defaults
+  workspace_root: ~/react-ts-starter
+  docker:
+    - image: circleci/node:10.10.0-jessie
+
 jobs:
-  build:
-    working_directory: ~/react-ts-starter
-    docker:
-      - image: circleci/node:10.10.0-jessie
+  prepare:
+    <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Update npm
           command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Update yarn
           command: 'sudo npm i -g yarn@latest'
       - run:
-          name: Install npm wee
-          command: npx yarn install
-      - run:
-          name: Install npm wee
-          command: npx yarn run build
+          name: Install npm
+          command: yarn install
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
-  lint:
-    docker:
-      - image: circleci/node:10.10.0-jessie
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  build:
+    <<: *defaults
     steps:
       - checkout
+      - attach_workspace: *attach_workspace
+      - run: yarn build
+
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace: *attach_workspace
       - run:
           name: Lint
-          command: npx yarn run lint
+          command: yarn lint
+
   test:
-    docker:
-      - image: circleci/node:10.10.0-jessie
+    <<: *defaults
     steps:
       - checkout
+      - attach_workspace: *attach_workspace
       - run:
           name: Test
-          command: npx yarn run test:ci
+          command: yarn test:ci
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - test:
+      - prepare
+      - build:
           requires:
-            - build
-          filters:
-            branches:
-              only: master
+            - prepare
       - lint:
           requires:
+            - prepare
+            - build
+      - test:
+          requires:
+            - prepare
             - build
           filters:
             branches:
