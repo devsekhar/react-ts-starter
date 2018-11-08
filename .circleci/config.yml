@@ -9,14 +9,20 @@ jobs:
       - run:
           name: Update npm
           command: 'sudo npm install -g npm@latest'
-      - run:
-          name: Yarn install
-          command: 'sudo npm i -g yarn@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
+          name: Update yarn
+          command: 'sudo npm i -g yarn@latest'
+      - run:
+          name: Update npx
+          command: 'sudo npm i -g npx@latest'
+      - run:
           name: Install npm wee
-          command: yarn install
+          command: npx yarn install
+      - run:
+          name: Install npm wee
+          command: npx yarn build
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -28,7 +34,7 @@ jobs:
       - checkout
       - run:
           name: Lint
-          command: yarn lint
+          command: npx yarn lint
   test:
     docker:
       - image: circleci/node:10.10.0-jessie
@@ -36,7 +42,7 @@ jobs:
       - checkout
       - run:
           name: Test
-          command: yarn test:ci
+          command: npx yarn test:ci
 
 workflows:
   version: 2
