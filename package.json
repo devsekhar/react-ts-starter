@@ -7,7 +7,7 @@
     "start": "if-env NODE_ENV=production && npm run build || npm run dev",
     "dev": "cross-env NODE_ENV=dev env-cmd .env react-scripts-ts start",
     "build": "cross-env NODE_ENV=prod env-cmd .env react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
+    "test": "react-scripts-ts test --env=jsdom && exit",
     "eject": "react-scripts-ts eject",
     "predeploy": "npm run build",
     "deploy": "node scripts/deploy.js",
@@ -62,27 +62,5 @@
     ">0.2%",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}",
-      "!<rootDir>/node_modules/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
-      }
-    },
-    "coverageReporters": [
-      "text"
-    ],
-    "snapshotSerializers": [],
-    "moduleNameMapper": {
-      "^~/(.*)$": "<rootDir>/src/$1"
-    },
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTest.ts"
-  }
+  ]
 }

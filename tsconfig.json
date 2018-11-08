@@ -19,5 +19,5 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
-  "exclude": ["node_modules", "build", "scripts", "src/setupTest.ts"]
+  "exclude": ["node_modules", "build", "scripts", "src/setupTests.ts"]
 }
