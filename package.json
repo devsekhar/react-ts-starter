@@ -10,7 +10,7 @@
     "test": "react-scripts-ts test --env=jsdom && exit",
     "eject": "react-scripts-ts eject",
     "predeploy": "npm run build",
-    "deploy": "node scripts/deploy.js",
+    "deploy": "echo \"No deploy script added\"",
     "analyze": "source-map-explorer build/static/js/main.*",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
