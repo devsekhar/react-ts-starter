@@ -7,10 +7,11 @@
     "start": "if-env NODE_ENV=production && npm run build || npm run dev",
     "dev": "cross-env NODE_ENV=dev env-cmd .env react-scripts-ts start",
     "build": "cross-env NODE_ENV=prod env-cmd .env react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom && exit",
+    "test": "react-scripts-ts test --env=jsdom",
+    "test:ci": "cross-env CI=true react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "predeploy": "npm run build",
-    "deploy": "echo \"No deploy script added\"",
+    "deploy": "node scripts/deploy.js",
     "analyze": "source-map-explorer build/static/js/main.*",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
@@ -18,7 +19,6 @@
   "dependencies": {
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
-    "react-scripts-ts": "3.1.0",
     "styled-components": "^4.0.3"
   },
   "devDependencies": {
@@ -39,6 +39,7 @@
     "prettier": "^1.15.1",
     "pretty-quick": "^1.8.0",
     "react-test-renderer": "^16.6.1",
+    "react-scripts-ts": "^3.1.0",
     "source-map-explorer": "^1.6.0",
     "stylelint": "^9.7.1",
     "stylelint-no-unsupported-browser-features": "^3.0.2",

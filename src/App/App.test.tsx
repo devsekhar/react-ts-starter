@@ -9,6 +9,6 @@ it("renders without crashing", () => {
 
 it("renders welcome message", () => {
   const wrapper = shallow(<App />);
-  const welcome = <h1>Welcome to React Typescript Starter</h1>;
-  expect(wrapper.find("h1").contains(welcome)).toEqual(true);
+  const welcome = "Welcome to React Typescript Starter";
+  expect(wrapper.find("h1").text()).toContain(welcome);
 });
