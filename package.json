@@ -3,6 +3,9 @@
   "description": "React typescript project starter",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": ">=8.0.x"
+  },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run build || npm run dev",
     "dev": "cross-env NODE_ENV=dev env-cmd .env react-scripts-ts start",
