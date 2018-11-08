@@ -22,7 +22,7 @@ jobs:
           command: npx yarn install
       - run:
           name: Install npm wee
-          command: npx yarn build
+          command: npx yarn run build
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -34,7 +34,7 @@ jobs:
       - checkout
       - run:
           name: Lint
-          command: npx yarn lint
+          command: npx yarn run lint
   test:
     docker:
       - image: circleci/node:10.10.0-jessie
@@ -42,7 +42,7 @@ jobs:
       - checkout
       - run:
           name: Test
-          command: npx yarn test:ci
+          command: npx yarn run test:ci
 
 workflows:
   version: 2
