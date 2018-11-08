@@ -15,9 +15,6 @@ jobs:
           name: Update yarn
           command: 'sudo npm i -g yarn@latest'
       - run:
-          name: Update npx
-          command: 'sudo npm i -g npx@latest'
-      - run:
           name: Install npm wee
           command: npx yarn install
       - run:
