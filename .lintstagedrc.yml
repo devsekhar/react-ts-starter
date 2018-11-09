@@ -1,8 +1,0 @@
-linters:
-  src/**/*.{ts,tsx}:
-    - tslint -c tslint.json 'src/**/*.{ts,tsx}'
-    - git add
-  src/**/*.css:
-    - stylelint
-    - git add
-  ignore: [".vscode"]
