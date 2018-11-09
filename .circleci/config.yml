@@ -48,7 +48,6 @@ jobs:
       - deploy:
           name: deploy
           command: |
-            echo "BUILD TYPE >>>> $BUILD_TYPE >>> $GITHUB_EMAIL >>> $GH_TOKEN >>> $GITHUB_USERNAME"
             if [ $CIRCLE_BRANCH = $SOURCE_BRANCH ]; then
               if [ $BUILD_TYPE = "firebase" ]; then
                 npx firebase deploy --project $FIREBASE_PROJECT_ID --only hosting --token $FIREBASE_TOKEN
@@ -76,7 +75,7 @@ jobs:
                 git add -A
                 git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
 
-                git push -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH
+                git push -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH --force
               elif [ $BUILD_TYPE = "now" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
               else
