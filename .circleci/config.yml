@@ -1,26 +1,18 @@
+# Javascript Node CircleCI 2.0 configuration file
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
 version: 2
 
-references:
-  workspace_root: &workspace_root
-    /tmp/workspace
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
-
-defaults: &defaults
-  working_directory: ~/react-ts-starter
-  docker:
-    - image: circleci/node:10.10.0-jessie
-
 jobs:
-  prepare:
-    <<: *defaults
+   build:
+    docker:
+      - image: circleci/node:8.2.1
     steps:
-      - *attach_workspace
       - checkout
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
+           # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
       - run:
           name: Update npm
           command: 'sudo npm install -g npm@latest'
@@ -34,51 +26,12 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - persist_to_workspace:
-          root: .
-          paths:
-            - node_modules
-  build:
-    <<: *defaults
-    steps:
-      - *attach_workspace
-      - checkout
-      - run: yarn build
-
-  lint:
-    <<: *defaults
-    steps:
-      - *attach_workspace
-      - checkout
       - run:
           name: Lint
           command: yarn lint
-
-  test:
-    <<: *defaults
-    steps:
-      - *attach_workspace
-      - checkout
       - run:
           name: Test
           command: yarn test:ci
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - prepare
-      - build:
-          requires:
-            - prepare
-      - lint:
-          requires:
-            - prepare
-            - build
-      - test:
-          requires:
-            - prepare
-            - build
-          filters:
-            branches:
-              only: master
+      - run:
+          name: Build
+          command: yarn build
