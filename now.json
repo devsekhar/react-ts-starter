@@ -2,6 +2,10 @@
   "name": "react-ts-starter",
   "type": "npm",
   "version": 2,
+  "public": true,
   "forwardNpm": true,
+  "engines": {
+    "node": "8.0.0"
+  },
   "alias": ["react-ts-starter.now.sh"]
 }
