@@ -74,7 +74,7 @@ jobs:
                 git add -A
                 git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
 
-                git push origin -q https://${GITHUB_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME $TARGET_BRANCH
+                git push origin -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH
               elif [ $BUILD_TYPE = "now" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
               else
