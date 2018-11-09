@@ -4,9 +4,15 @@ version: 2
 
 jobs:
    build:
+    branches:
+      ignore:
+        - gh-pages
     docker:
       - image: circleci/node:10.10.0-jessie
     working_directory: ~/react-ts-starter
+    environment:
+      - SOURCE_BRANCH: master
+      - TARGET_BRANCH: gh-pages
     steps:
       - checkout
       - restore_cache:
@@ -42,9 +48,37 @@ jobs:
       - deploy:
           name: deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" = "master" ]; then
-              npx firebase deploy --project $FIREBASE_PROJECT_ID --only hosting --token $FIREBASE_TOKEN
-              npx firebase use --clear
+            if [ $CIRCLE_BRANCH = $SOURCE_BRANCH ]; then
+              if [ $BUILD_TYPE = "firebase" ]; then
+                npx firebase deploy --project $FIREBASE_PROJECT_ID --only hosting --token $FIREBASE_TOKEN
+                npx firebase use --clear
+              elif [ $BUILD_TYPE = "gh-pages" ]; then  
+                git config --global user.email $GH_EMAIL
+                git config --global user.name ${CIRCLE_USERNAME}
+
+                git clone $CIRCLE_REPOSITORY_URL out
+
+                cd out
+                git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+                git rm -rf .
+                cd ..
+
+                npm run build
+
+                cp -a build/. out/.
+
+                mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
+                cd out
+
+                git add -A
+                git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
+
+                git push origin $TARGET_BRANCH
+              elif [ $BUILD_TYPE = "gh-pages" ]; then  
+                echo "BUILD TYPE >>>> $BUILD_TYPE"
+              else
+                echo "$BUILD_TYPE not in script"
+              fi
             else
               echo "Not master branch, dry run only"
             fi
