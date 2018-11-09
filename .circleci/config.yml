@@ -48,18 +48,21 @@ jobs:
       - deploy:
           name: deploy
           command: |
+            echo "BUILD TYPE >>>> $BUILD_TYPE"
             if [ $CIRCLE_BRANCH = $SOURCE_BRANCH ]; then
               if [ $BUILD_TYPE = "firebase" ]; then
                 npx firebase deploy --project $FIREBASE_PROJECT_ID --only hosting --token $FIREBASE_TOKEN
                 npx firebase use --clear
-              elif [ $BUILD_TYPE = "gh-pages" ]; then  
-                git config --global user.email $GH_EMAIL
-                git config --global user.name ${CIRCLE_USERNAME}
+              elif [ $BUILD_TYPE = "gh-pages" ]; then
+                git config credential.helper 'cache --timeout=120'
+                git config --local user.email $GH_EMAIL
+                git config --local user.name ${CIRCLE_USERNAME}
+                git config --local user.token ${GITHUB_TOKEN}
 
                 git clone $CIRCLE_REPOSITORY_URL out
 
                 cd out
-                git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+                git checkout -b $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
                 git rm -rf .
                 cd ..
 
