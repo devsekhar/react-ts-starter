@@ -1,11 +1,26 @@
 {
   "name": "react-ts-starter",
-  "type": "npm",
+  "type": "static",
   "version": 2,
   "public": true,
   "forwardNpm": true,
   "engines": {
     "node": "8.0.0"
+  },
+  "build": {
+    "env": {
+      "CI": "true",
+      "NODE_ENV": "production"
+    }
+  },
+  "static": {
+    "public": "build",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   },
   "files": ["build"],
   "alias": ["react-ts-starter.now.sh"]
