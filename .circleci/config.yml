@@ -59,7 +59,7 @@ jobs:
                 git config --global user.name $GITHUB_USERNAME
                 git config --global user.token $GH_TOKEN
 
-                git clone $CIRCLE_REPOSITORY_URL out
+                git clone https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git out
 
                 cd out
                 git checkout -b $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
@@ -74,7 +74,7 @@ jobs:
                 git add -A
                 git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
 
-                git push origin -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH
+                git push -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH
               elif [ $BUILD_TYPE = "now" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
               else
