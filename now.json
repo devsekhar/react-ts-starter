@@ -1,6 +1,7 @@
 {
   "name": "react-ts-starter",
   "type": "npm",
+  "version": 2,
   "forwardNpm": true,
   "alias": ["react-ts-starter.now.sh"]
 }

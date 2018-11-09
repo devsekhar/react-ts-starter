@@ -77,7 +77,7 @@ jobs:
 
                 git push -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH --force
               elif [ $BUILD_TYPE = "now" ]; then  
-                npx now --token $NOW_TOKEN --local-config now.json alias
+                npx now --token $NOW_TOKEN --local-config now.json
               elif [ $BUILD_TYPE = "netlify" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
               else
