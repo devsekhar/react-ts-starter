@@ -6,7 +6,6 @@
   "engines": {
     "node": ">=8.0.x"
   },
-  "homepage": "https://rjoydip.github.io/react-ts-starter",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run build || npm run dev",
     "dev": "cross-env NODE_ENV=dev env-cmd .env react-scripts-ts start",
