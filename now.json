@@ -23,5 +23,5 @@
     ]
   },
   "files": ["build"],
-  "alias": ["react-ts-starter.now.sh"]
+  "alias": ["react-ts-starter-ssh.now.sh"]
 }

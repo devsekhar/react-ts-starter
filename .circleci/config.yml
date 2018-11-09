@@ -13,6 +13,7 @@ jobs:
     environment:
       - SOURCE_BRANCH: master
       - TARGET_BRANCH: gh-pages
+      - PROJECT_NAME: react-ts-starter
     steps:
       - checkout
       - restore_cache:
@@ -78,8 +79,9 @@ jobs:
                 git push -q https://${GH_TOKEN}@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git $TARGET_BRANCH --force
               elif [ $BUILD_TYPE = "now" ]; then
                 npm run build
-                # cp -a build/. public/.
-                npx now --token $NOW_TOKEN --local-config now.json
+                cd build
+                npx now --token $NOW_TOKEN --name $PROJECT_NAME
+                #npx now --token $NOW_TOKEN --local-config now.json
               elif [ $BUILD_TYPE = "netlify" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
               else
