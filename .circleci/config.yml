@@ -48,7 +48,7 @@ jobs:
       - deploy:
           name: deploy
           command: |
-            echo "BUILD TYPE >>>> $BUILD_TYPE >>> $GITHUB_EMAIL >>> $GITHUB_TOKEN"
+            echo "BUILD TYPE >>>> $BUILD_TYPE >>> $GITHUB_EMAIL >>> $GITHUB_TOKEN >>> $GITHUB_USERNAME"
             if [ $CIRCLE_BRANCH = $SOURCE_BRANCH ]; then
               if [ $BUILD_TYPE = "firebase" ]; then
                 npx firebase deploy --project $FIREBASE_PROJECT_ID --only hosting --token $FIREBASE_TOKEN
