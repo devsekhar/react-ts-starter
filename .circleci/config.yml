@@ -77,7 +77,7 @@ jobs:
                 git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
 
                 git push origin $TARGET_BRANCH
-              elif [ $BUILD_TYPE = "gh-pages" ]; then  
+              elif [ $BUILD_TYPE = "now" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
               else
                 echo "$BUILD_TYPE not in script"
