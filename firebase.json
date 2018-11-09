@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "postdeploy": "echo 'Just deployed to Firebase Hosting!'",
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "/service-worker.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
+  }
+}

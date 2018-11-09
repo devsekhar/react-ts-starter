@@ -6,6 +6,7 @@ jobs:
    build:
     docker:
       - image: circleci/node:10.10.0-jessie
+    working_directory: ~/react-ts-starter
     steps:
       - checkout
       - restore_cache:
@@ -19,6 +20,9 @@ jobs:
       - run:
           name: Update yarn
           command: 'sudo npm i -g yarn@latest'
+      - run:
+          name: Global installation npx
+          command: 'sudo npm i -g npx@latest'
       - run:
           name: Install npm
           command: yarn install
@@ -35,3 +39,13 @@ jobs:
       - run:
           name: Build
           command: yarn build
+      - deploy:
+          name: deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "master" ]; then
+              npx firebase use $FIREBASE_TOKEN
+              npx firebase deploy
+              npx firebase use --clear
+            else
+              echo "Not master branch, dry run only"
+            fi
