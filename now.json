@@ -1,0 +1,6 @@
+{
+  "name": "react-ts-starter",
+  "type": "npm",
+  "forwardNpm": true,
+  "alias": ["react-ts-starter"]
+}
