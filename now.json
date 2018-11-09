@@ -8,10 +8,16 @@
     "node": "8.0.0"
   },
   "build": {
-    "env": {
-      "CI": "true",
-      "NODE_ENV": "production"
-    }
+    "env": [
+      {
+        "CI": "true",
+        "NODE_ENV": "production"
+      },
+      {
+        "src": "index.html",
+        "use": "@now/static"
+      }
+    ]
   },
   "static": {
     "public": "build",
@@ -22,6 +28,5 @@
       }
     ]
   },
-  "files": ["build"],
   "alias": ["react-ts-starter-ssh.now.sh"]
 }

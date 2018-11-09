@@ -80,7 +80,7 @@ jobs:
               elif [ $BUILD_TYPE = "now" ]; then
                 npm run build
                 cd build
-                npx now --token $NOW_TOKEN --name $PROJECT_NAME
+                npx now --token $NOW_TOKEN --local-config now.json
                 #npx now --token $NOW_TOKEN --local-config now.json
               elif [ $BUILD_TYPE = "netlify" ]; then  
                 echo "BUILD TYPE >>>> $BUILD_TYPE"
