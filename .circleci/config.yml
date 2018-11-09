@@ -48,7 +48,7 @@ jobs:
       - deploy:
           name: deploy
           command: |
-            echo "BUILD TYPE >>>> $BUILD_TYPE"
+            echo "BUILD TYPE >>>> $BUILD_TYPE >>> $GITHUB_EMAIL >>> $GITHUB_TOKEN"
             if [ $CIRCLE_BRANCH = $SOURCE_BRANCH ]; then
               if [ $BUILD_TYPE = "firebase" ]; then
                 npx firebase deploy --project $FIREBASE_PROJECT_ID --only hosting --token $FIREBASE_TOKEN
@@ -65,8 +65,6 @@ jobs:
                 git checkout -b $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
                 git rm -rf .
                 cd ..
-
-                npm run build
 
                 cp -a build/. out/.
 
