@@ -1,7 +1,7 @@
 # react-ts-starter
 
 [![Build Status](https://travis-ci.org/rjoydip/react-ts-starter.svg?branch=master)](https://travis-ci.org/rjoydip/react-ts-starter)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![CircleCI](https://circleci.com/gh/rjoydip/react-ts-starter.svg?style=svg)](https://circleci.com/gh/rjoydip/react-ts-starter)
 [![License](https://img.shields.io/npm/l/make-coverage-badge.svg)](https://github.com/rjoydip/react-ts-starter/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
