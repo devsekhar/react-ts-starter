@@ -55,9 +55,9 @@ jobs:
                 npx firebase use --clear
               elif [ $BUILD_TYPE = "gh-pages" ]; then
                 git config credential.helper 'cache --timeout=120'
-                git config --local user.email $GITHUB_EMAIL
-                git config --local user.name $GITHUB_USERNAME
-                git config --local user.token $GITHUB_TOKEN
+                git config --global user.email $GITHUB_EMAIL
+                git config --global user.name $GITHUB_USERNAME
+                git config --global user.token $GITHUB_TOKEN
 
                 git clone $CIRCLE_REPOSITORY_URL out
 
